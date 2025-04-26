@@ -1,0 +1,67 @@
+version: "3.8"
+
+services:
+  mariadb:
+    build: ./requirements/mariadb
+    container_name: mariadb
+    restart: always
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - website_network
+
+  wordpress:
+    build: ./requirements/wordpress
+    container_name: wordpress
+    restart: always
+    environment:
+      WORDPRESS_DB_HOST: ${WORDPRESS_DB_HOST}
+      WORDPRESS_DB_USER: ${WORDPRESS_DB_USER}
+      WORDPRESS_DB_PASSWORD: ${WORDPRESS_DB_PASSWORD}
+      WORDPRESS_DB_NAME: ${WORDPRESS_DB_NAME}
+    volumes:
+      - wordpress_data:/var/www/html
+    networks:
+      - website_network
+
+  nginx:
+    build: ./requirements/nginx
+    container_name: nginx
+    restart: always
+    ports:
+      - "${NGINX_PORT}:443"
+    volumes:
+      - wordpress_data:/var/www/html
+      # - ./requirements/nginx/certs:/etc/nginx/certs
+    depends_on:
+      - wordpress
+    networks:
+      - website_network
+
+volumes:
+  mysql_data:
+  wordpress_data:
+
+networks:
+  website_network:
+    driver: bridge
+
+
+# services:
+#   nginx:
+#     build: ./requirements/nginx
+#     ports:
+#       - "443:443"
+#     volumes:
+#       - ./requirements/nginx/certs:/etc/nginx/certs
+#       - ./requirements/nginx/html:/var/www/html
+#     restart: always
+#     networks:
+#       - website
+
+# networks:
+#   website:
+#     driver: bridge
