@@ -6,8 +6,9 @@ services:
     container_name: mariadb
     restart: always
     environment:
-      MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE:      ${MYSQL_DATABASE}
+      MYSQL_USER:          ${MYSQL_USER_name}
     volumes:
       - mysql_data:/var/lib/mysql
     networks:
