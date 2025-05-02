@@ -7,9 +7,8 @@ mkdir -p /etc/nginx/certs
 openssl req -x509 -nodes -days 365 \
             -subj "/C=MR/ST=StateName/L=benguerir/O=1337/OU=42/CN=localhost" \
             -newkey rsa:2048 \
-            -keyout /etc/nginx/certs/server.key \
-            -out /etc/nginx/certs/server.crt
+            -keyout /etc/nginx/certs/selfsigned.key \
+            -out /etc/nginx/certs/selfsigned.crt
 
-rm /etc/nginx/sites-enabled/default
 
-nginx -g "daemon off;""
+nginx -g "daemon off;"

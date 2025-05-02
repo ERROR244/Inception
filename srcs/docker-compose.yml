@@ -6,11 +6,9 @@ services:
     container_name: mariadb
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_DATABASE:      ${MYSQL_DATABASE}
-      MYSQL_USER:          ${MYSQL_USER_name}
+      - .env
     volumes:
-      - mysql_data:/var/lib/mysql
+      - mariadb_data:/var/lib/mysql
     networks:
       - website_network
 
@@ -19,10 +17,7 @@ services:
     container_name: wordpress
     restart: always
     environment:
-      WORDPRESS_DB_HOST: ${WORDPRESS_DB_HOST}
-      WORDPRESS_DB_USER: ${WORDPRESS_DB_USER}
-      WORDPRESS_DB_PASSWORD: ${WORDPRESS_DB_PASSWORD}
-      WORDPRESS_DB_NAME: ${WORDPRESS_DB_NAME}
+      - .env
     volumes:
       - wordpress_data:/var/www/html
     networks:
@@ -33,18 +28,27 @@ services:
     container_name: nginx
     restart: always
     ports:
-      - "${NGINX_PORT}:443"
+      - "443:443"
     volumes:
       - wordpress_data:/var/www/html
-      # - ./requirements/nginx/certs:/etc/nginx/certs
     depends_on:
       - wordpress
     networks:
       - website_network
 
 volumes:
-  mysql_data:
+  mariadb_data:
+    driver: local
+    driver_opts:
+      type: none
+      device: ./srcs/volumes/mariadb_data
+      o: bind
   wordpress_data:
+    driver: local
+    driver_opts:
+      type: none
+      device: ./srcs/volumes/wordpress_data
+      o: bind
 
 networks:
   website_network:
