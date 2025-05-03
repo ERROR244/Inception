@@ -45,14 +45,15 @@ sed -i "s#listen = /run/php/php8.2-fpm.sock#listen = 0.0.0.0:9000#" /etc/php/8.2
 
 echo "Installing WordPress..."
 wp core install \
-    --path=/var/www/html \
-    --url="https://localhost" \
-    --title="Inception Site" \
-    --admin_user=admin \
-    --admin_password=admin \
-    --admin_email=admin@example.com \
+    --path=${WP_PATH} \
+    --url=${WP_URL} \
+    --title=${WP_TITLE} \
+    --admin_user=${WP_ADMIN_USER} \
+    --admin_password=${WP_ADMIN_PASSWORD} \
+    --admin_email=${WP_ADMIN_EMAIL} \
     --skip-email \
     --allow-root
+
 
 echo "Starting PHP-FPM with version: ${PHP_VERSION:-8.2}"
 php-fpm${PHP_VERSION:-8.2} -F
