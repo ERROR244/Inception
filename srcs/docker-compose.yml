@@ -5,7 +5,9 @@ services:
     build: ./requirements/mariadb
     container_name: mariadb
     restart: always
-    environment:
+    ports:
+      - "3306:3306"
+    env_file:
       - .env
     volumes:
       - mariadb_data:/var/lib/mysql
@@ -16,7 +18,11 @@ services:
     build: ./requirements/wordpress
     container_name: wordpress
     restart: always
-    environment:
+    depends_on:
+      - mariadb
+    ports:
+      - "9000:9000"
+    env_file:
       - .env
     volumes:
       - wordpress_data:/var/www/html
@@ -29,6 +35,8 @@ services:
     restart: always
     ports:
       - "443:443"
+    env_file:
+      - .env
     volumes:
       - wordpress_data:/var/www/html
     depends_on:
@@ -54,19 +62,3 @@ networks:
   website_network:
     driver: bridge
 
-
-# services:
-#   nginx:
-#     build: ./requirements/nginx
-#     ports:
-#       - "443:443"
-#     volumes:
-#       - ./requirements/nginx/certs:/etc/nginx/certs
-#       - ./requirements/nginx/html:/var/www/html
-#     restart: always
-#     networks:
-#       - website
-
-# networks:
-#   website:
-#     driver: bridge
