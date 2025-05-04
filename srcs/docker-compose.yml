@@ -49,13 +49,13 @@ volumes:
     driver: local
     driver_opts:
       type: none
-      device: ./srcs/volumes/mariadb_data
+      device: /home/ksohail-/data/mariadb_data
       o: bind
   wordpress_data:
     driver: local
     driver_opts:
       type: none
-      device: ./srcs/volumes/wordpress_data
+      device: /home/ksohail-/data/wordpress_data
       o: bind
 
 networks:
