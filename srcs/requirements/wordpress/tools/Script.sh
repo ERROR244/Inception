@@ -31,15 +31,24 @@ sed -i "s/localhost/${WORDPRESS_DB_HOST}/"          /var/www/html/wp-config.php
 
 sed -i "s#listen = /run/php/php8.2-fpm.sock#listen = 0.0.0.0:9000#" /etc/php/8.2/fpm/pool.d/www.conf
 
-sed -i "/WP_REDIS/d" /var/www/html/wp-config.php
+# Remove existing lines if they exist
+sed -i "/WP_REDIS_HOST/d" /var/www/html/wp-config.php
+sed -i "/WP_REDIS_PORT/d" /var/www/html/wp-config.php
 sed -i "/WP_CACHE/d" /var/www/html/wp-config.php
-sed -i "/^\/\* That.*Happy publishing. \*\//i \
-        define('WP_REDIS_HOST', 'redis');\n\
-        define('WP_REDIS_PORT', 6379);\n\
-        define('WP_CACHE', true);\n" /var/www/html/wp-config.php
 
+# Insert fresh block
+sed -i "/^\/\* That.*Happy publishing. \*\//i \
+define('WP_REDIS_HOST', 'redis');\
+\ndefine('WP_REDIS_PORT', 6379);\
+\ndefine('WP_CACHE', true);\
+" /var/www/html/wp-config.php
+
+
+# # Enable object caching
+# wp redis enable
 
 echo "Installing WordPress..."
+
 wp core install \
     --path=${WP_PATH} \
     --url=${WP_URL} \
@@ -50,6 +59,13 @@ wp core install \
     --skip-email \
     --allow-root
 
+# Install and activate Redis plugin
+echo "Installing and activating Redis Object Cache plugin..."
+wp plugin install redis-cache --activate --path=${WP_PATH} --allow-root
+
+# Enable Redis object caching
+echo "Enabling Redis object cache..."
+wp redis enable --path=${WP_PATH} --allow-root
 
 echo "Starting PHP-FPM with version: ${PHP_VERSION:-8.2}"
 php-fpm${PHP_VERSION:-8.2} -F

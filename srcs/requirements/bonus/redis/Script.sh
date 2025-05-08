@@ -5,8 +5,8 @@ set -e
 apt-get update
 apt-get install -y redis-server
 
-# # Optional: enable Redis to run in the foreground
-# sed -i 's/^supervised no/supervised systemd/' /etc/redis/redis.conf
+# Optional: enable Redis to run in the foreground
+sed -i 's/^supervised no/supervised systemd/' /etc/redis/redis.conf
 
 # Clean up to reduce image size
 apt-get clean
