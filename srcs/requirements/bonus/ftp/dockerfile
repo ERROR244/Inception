@@ -1,0 +1,10 @@
+FROM debian:12
+
+RUN apt-get  update  && apt-get upgrade -y && apt-get install -y vsftpd
+
+COPY ./tools/Script.sh /usr/local/bin/
+COPY ./tools/vsftpd.conf /etc/
+
+EXPOSE 21
+
+CMD ["bash" , "/usr/local/bin/Script.sh"]

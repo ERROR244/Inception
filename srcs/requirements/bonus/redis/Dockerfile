@@ -1,7 +1,7 @@
-FROM debian:bullseye
+FROM debian:12
 
 # Copy install script and run it during build
-COPY Script.sh /usr/local/bin/install_redis.sh
+COPY tools/Script.sh /usr/local/bin/install_redis.sh
 RUN chmod +x /usr/local/bin/install_redis.sh && /usr/local/bin/install_redis.sh
 
 # Expose Redis port

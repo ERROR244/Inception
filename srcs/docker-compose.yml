@@ -53,6 +53,22 @@ services:
     networks:
       - website_network
 
+  ftp:
+    build: ./requirements/bonus/ftp
+    container_name: ftp
+    restart: always
+    ports:
+      - "21:21"                   # FTP port
+      - "21000-21010:21000-21010" # Passive FTP ports
+    env_file:
+      - .env
+    volumes:
+      - wordpress_data:/var/run/vsftpd/data
+    networks:
+      - website_network
+
+
+
 volumes:
   mariadb_data:
     driver: local
