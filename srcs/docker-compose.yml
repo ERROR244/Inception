@@ -43,6 +43,15 @@ services:
       - wordpress
     networks:
       - website_network
+    
+  redis:
+    build: ./requirements/bonus/redis
+    container_name: redis
+    restart: always
+    ports:
+      - "6379:6379"
+    networks:
+      - website_network
 
 volumes:
   mariadb_data:

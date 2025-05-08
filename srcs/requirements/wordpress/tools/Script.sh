@@ -31,17 +31,13 @@ sed -i "s/localhost/${WORDPRESS_DB_HOST}/"          /var/www/html/wp-config.php
 
 sed -i "s#listen = /run/php/php8.2-fpm.sock#listen = 0.0.0.0:9000#" /etc/php/8.2/fpm/pool.d/www.conf
 
+sed -i "/WP_REDIS/d" /var/www/html/wp-config.php
+sed -i "/WP_CACHE/d" /var/www/html/wp-config.php
+sed -i "/^\/\* That.*Happy publishing. \*\//i \
+        define('WP_REDIS_HOST', 'redis');\n\
+        define('WP_REDIS_PORT', 6379);\n\
+        define('WP_CACHE', true);\n" /var/www/html/wp-config.php
 
-
-
-# echo "Configuring WordPress..."
-# wp config create \
-# --path=/var/www/html \
-# --dbname="${WORDPRESS_DB_NAME}" \
-# --dbuser="${WORDPRESS_DB_USER}" \
-# --dbpass="${WORDPRESS_DB_PASSWORD}" \
-# --dbhost="${WORDPRESS_DB_HOST}" \
-# --allow-root
 
 echo "Installing WordPress..."
 wp core install \
