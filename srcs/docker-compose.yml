@@ -43,6 +43,21 @@ services:
       - wordpress
     networks:
       - website_network
+
+  website:
+    build: ./requirements/bonus/Website
+    container_name: website
+    restart: always
+    ports:
+      - "8000:80"
+    env_file:
+      - .env
+    # volumes:
+    #   - wordpress_data:/var/www/html
+    # depends_on:
+    #   - wordpress
+    # networks:
+    #   - website_network
     
   redis:
     build: ./requirements/bonus/redis
@@ -64,6 +79,15 @@ services:
       - .env
     volumes:
       - wordpress_data:/var/run/vsftpd/data
+    networks:
+      - website_network
+
+  adminer:
+    build: ./requirements/bonus/adminer
+    container_name: adminer
+    restart: always
+    ports:
+      - "8800:8800"
     networks:
       - website_network
 

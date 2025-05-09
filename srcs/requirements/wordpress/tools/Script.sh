@@ -44,8 +44,6 @@ define('WP_REDIS_HOST', 'redis');\
 " /var/www/html/wp-config.php
 
 
-# # Enable object caching
-# wp redis enable
 
 echo "Installing WordPress..."
 

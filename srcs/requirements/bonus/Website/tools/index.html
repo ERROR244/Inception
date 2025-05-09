@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Khalil Sohail – Resume</title>
+  <link rel="stylesheet" href="style.css" />
+
+  <style id="theme-style">
+    /* Default dark theme (copied from style.css above) */
+    :root {
+      --bg: #0f1117;
+      --text: #e4e4e4;
+      --card: #1b1e26;
+      --primary: #4fc3f7;
+      --accent: #81d4fa;
+    }
+  
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+    }
+  
+    .container {
+      background-color: var(--card);
+      color: var(--text);
+    }
+  
+    header h1,
+    section h2 {
+      color: var(--primary);
+    }
+  
+    ul li::before,
+    a {
+      color: var(--accent);
+    }
+  
+    a:hover {
+      color: var(--primary);
+    }
+  </style>  
+
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Khalil Sohail</h1>
+      <p class="tagline">Programmer | C/C++/Python | Learning ML/DL/AI</p>
+      <button onclick="toggleTheme()" style="margin-top: 1rem; padding: 0.5rem 1rem; background: none; border: 1px solid var(--accent); color: var(--accent); border-radius: 6px; cursor: pointer;">
+        Toggle Theme
+      </button>      
+    </header>
+
+    <section class="about">
+      <h2>About Me</h2>
+      <p>I'm a 1337 programmer fluent in C, C++, and Python. Currently diving deep into Machine Learning, Deep Learning, and AI. Also doing low-level Unix stuff, Docker setups, and playing with system internals.</p>
+    </section>
+
+    <section class="skills">
+      <h2>Skills</h2>
+      <ul>
+        <li>C, C++ (Orthodox Canonical Form, low-level Unix)</li>
+        <li>Python (and CLI tools)</li>
+        <li>ML/DL/AI (currently learning)</li>
+        <li>Docker, Linux (Kali/Ubuntu), Git</li>
+        <li>42 Projects: ft_linear_regression, minishell, cub3D, webserv, etc...</li>
+        <li>personal Projects: Chess AI</li>
+      </ul>
+    </section>
+
+    <section class="projects">
+      <h2>Projects</h2>
+      <ul>
+        <li>
+          <a href="https://github.com/ERROR244/ft_linear_regression" target="_blank"><strong>ft_linear_regression:</strong> </a>
+          This project implements a simple Linear Regression model to predict the price of a car based on its mileage.
+          <br>
+          
+        </li>
+        <li>
+          <a href="https://github.com/ERROR244/webserv" target="_blank"><strong>webserv:</strong> </a>
+          A C++ High Performance Web Server
+          <br>
+        </li>
+        <li>
+          <a href="https://github.com/ERROR244/minishell" target="_blank"><strong>Minishell:</strong> </a>
+          Unix shell implementation using C and system calls.
+          <br>
+          
+        </li>
+        <li>
+          <a href="https://github.com/ERROR244/cub3D" target="_blank"><strong>cub3D:</strong> </a>
+          Raycasting game clone using `mlx.h`.
+          <br>
+          
+        </li>
+        <li>
+          <a href="https://github.com/ERROR244/chess-AI" target="_blank"><strong>Chess AI:</strong> </a>
+          A chess game with a bot with 1000 ELO.
+          <br>
+          
+        </li>
+      </ul>
+    </section>
+
+    <section class="contact">
+      <h2>Contact</h2>
+      <ul>
+        <li>Email: <a href="mailto:khalilsohail24@gmail.com">khalilsohail24@gmail.com</a></li>
+        <li>Discord: khalil_sohail#1234</li>
+        <li>LinkedIn: <a href="https://www.linkedin.com/in/khalil-sohail-5260892b8/" target="_blank">khalil-sohail</a></li>
+        <li>github: <a href="https://github.com/ERROR244" target="_blank">ERROR244</a></li>
+      </ul>
+    </section>
+
+  </div>
+  <script>
+    const toggleTheme = () => {
+      const root = document.documentElement;
+      const dark = {
+        "--bg": "#0f1117",
+        "--text": "#e4e4e4",
+        "--card": "#1b1e26",
+        "--primary": "#4fc3f7",
+        "--accent": "#81d4fa"
+      };
+      const light = {
+        "--bg": "#f9f9f9",
+        "--text": "#222",
+        "--card": "#ffffff",
+        "--primary": "#007acc",
+        "--accent": "#005f99"
+      };
+      const current = getComputedStyle(root).getPropertyValue("--bg").trim();
+      const theme = current === dark["--bg"] ? light : dark;
+      Object.entries(theme).forEach(([k, v]) => root.style.setProperty(k, v));
+    };
+  </script>
+
+
+</body>
+</html>
