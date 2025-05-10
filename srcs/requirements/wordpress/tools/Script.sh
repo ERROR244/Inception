@@ -4,10 +4,6 @@ set -e
 
 sleep 5
 
-# Set correct ownership and permissions
-chmod -R 755 /var/www/html
-chown -R www-data:www-data /var/www/html
-
 # Install WP-CLI if it's not already installed
 if ! command -v wp &> /dev/null; then
   echo "Installing WP-CLI..."
@@ -64,6 +60,12 @@ wp plugin install redis-cache --activate --path=${WP_PATH} --allow-root
 # Enable Redis object caching
 echo "Enabling Redis object cache..."
 wp redis enable --path=${WP_PATH} --allow-root
+
+# Set correct ownership and permissions
+chown -R www-data:www-data /var/www/html
+chmod -R 755 /var/www/html
+chown -R www-data:www-data /var/www/html/wp-content
+chmod -R 755 /var/www/html/wp-content
 
 echo "Starting PHP-FPM with version: ${PHP_VERSION:-8.2}"
 php-fpm${PHP_VERSION:-8.2} -F

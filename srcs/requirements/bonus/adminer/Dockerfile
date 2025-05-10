@@ -1,7 +1,7 @@
-FROM debian:bullseye
+FROM debian:12
 
 RUN apt-get update && apt-get install -y \
-    nginx php-fpm php-mysqli wget unzip \
+    nginx php php-fpm php-mysqli wget unzip \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Download Adminer
@@ -11,6 +11,6 @@ RUN mkdir -p /var/www/html && \
 COPY tools/default.conf /etc/nginx/sites-available/default
 
 EXPOSE 8800
-
+    
 # Run both services
-CMD service php7.4-fpm start && nginx -g 'daemon off;'
+CMD service php8.2-fpm start && nginx -g 'daemon off;'

@@ -52,12 +52,6 @@ services:
       - "8000:80"
     env_file:
       - .env
-    # volumes:
-    #   - wordpress_data:/var/www/html
-    # depends_on:
-    #   - wordpress
-    # networks:
-    #   - website_network
     
   redis:
     build: ./requirements/bonus/redis
@@ -91,6 +85,19 @@ services:
     networks:
       - website_network
 
+  portainer:
+    build: ./requirements/bonus/portainer
+    container_name: portainer
+    restart: always
+    ports:
+      - "9443:9443"
+    env_file:
+      - .env
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+    networks:
+      - website_network
 
 
 volumes:
@@ -105,6 +112,12 @@ volumes:
     driver_opts:
       type: none
       device: /home/ksohail-/data/wordpress_data
+      o: bind
+  portainer_data:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/ksohail-/data/portainer
       o: bind
 
 networks:

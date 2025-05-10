@@ -5,6 +5,7 @@ set -e
 apt-get update
 apt-get install -y redis-server
 
+
 # Optional: enable Redis to run in the foreground
 sed -i 's/^supervised no/supervised systemd/' /etc/redis/redis.conf
 

@@ -14,7 +14,7 @@ down:
 	@docker-compose -f ./srcs/docker-compose.yml down -v
 
 Down:
-	@sudo rm -rf /home/ksohail-/data/mariadb_data/* /home/ksohail-/data/wordpress_data/*
+	@sudo rm -rf /home/ksohail-/data/mariadb_data/* /home/ksohail-/data/wordpress_data/* /home/ksohail-/data/portainer/*
 	@docker-compose -f ./srcs/docker-compose.yml down -v
 
 ps:
@@ -29,7 +29,7 @@ reUp: down
 	@clear
 
 reBuild: down
-	@sudo mkdir -p /home/ksohail-/data/mariadb_data /home/ksohail-/data/wordpress_data
+	@sudo mkdir -p /home/ksohail-/data/mariadb_data /home/ksohail-/data/wordpress_data /home/ksohail-/data/portainer
 	@docker-compose -f ./srcs/docker-compose.yml up -d --build
 	@clear
 
