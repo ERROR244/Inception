@@ -1,3 +1,7 @@
+build:
+	@sudo mkdir -p /home/ksohail-/data/mariadb_data /home/ksohail-/data/wordpress_data
+	@docker-compose -f ./srcs/docker-compose.yml up --build -d
+
 up:
 	@sudo mkdir -p /home/ksohail-/data/mariadb_data /home/ksohail-/data/wordpress_data
 	docker-compose -f ./srcs/docker-compose.yml up -d
@@ -5,10 +9,6 @@ up:
 stop:
 	@sudo mkdir -p /home/ksohail-/data/mariadb_data /home/ksohail-/data/wordpress_data
 	docker-compose -f ./srcs/docker-compose.yml stop
-
-build:
-	@sudo mkdir -p /home/ksohail-/data/mariadb_data /home/ksohail-/data/wordpress_data
-	@docker-compose -f ./srcs/docker-compose.yml up --build -d
 
 down:
 	@docker-compose -f ./srcs/docker-compose.yml down -v

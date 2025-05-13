@@ -1,6 +1,0 @@
-#!/bin/bash
-
-docker container rm $(docker container ls -aq)
-docker image rm -f $(docker image ls -qa) 
-
-docker image ls -a
